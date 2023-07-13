@@ -1,5 +1,6 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from views import get_all_animals
 
 
 # Here's a class. It inherits from another class.
@@ -26,14 +27,10 @@ class HandleRequests(BaseHTTPRequestHandler):
         print(self.path)
 
         # It's an if..else statement
+        # In Python, this is a list of dictionaries
+        # In JavaScript, you would call it an array of objects
         if self.path == "/animals":
-            # In Python, this is a list of dictionaries
-            # In JavaScript, you would call it an array of objects
-            response = [
-                {"id": 1, "name": "Snickers", "species": "Dog"},
-                {"id": 2, "name": "Lenny", "species": "Cat"}
-            ]
-
+            response = get_all_animals()
         else:
             response = []
 
@@ -77,10 +74,8 @@ class HandleRequests(BaseHTTPRequestHandler):
         """
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods',
-                         'GET, POST, PUT, DELETE')
-        self.send_header('Access-Control-Allow-Headers',
-                         'X-Requested-With, Content-Type, Accept')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+        self.send_header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept')
         self.end_headers()
 
 
